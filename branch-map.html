@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>Branch Map - Winn x Razink</title>
+<style>
+  body{background:#0b1826;color:#e8e2d6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;margin:0;padding-bottom:50px}
+  .draftbar{background:#3a2c14;color:#e8c987;text-align:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase;padding:7px;font-weight:600}
+  .page{max-width:980px;margin:0 auto;padding:0 20px}
+  h1{font-family:Georgia,serif;font-weight:400;font-size:28px;color:#e8e2d6;margin:34px 0 4px}
+  h1 em{color:#c9a96a;font-style:normal}
+  .sub{color:#a9b4bf;font-size:14px;margin-bottom:24px;max-width:640px}
+  .wrap{background:#132435;border:1px solid #24384c;border-radius:8px;padding:18px;overflow-x:auto}
+  .notes{font-size:13px;color:#a9b4bf;margin-top:20px;max-width:700px}
+  .notes b{color:#e8e2d6}
+  .notes li{margin:6px 0}
+  a{color:#c9a96a}
+</style>
+</head>
+<body>
+<div class="draftbar">Draft &middot; confidential &middot; every branch negotiable</div>
+<div class="page">
+<h1>Every branch, drawn. <em>Including the exits.</em></h1>
+<p class="sub">The paths from signing day through pilot, build, commitment, and outcome. There is no
+branch where earned equity evaporates - and the miss branch is drawn on purpose. Back to
+<a href="options.html">the three paths</a>.</p>
+<div class="wrap">
+<pre class="mermaid">
+flowchart TD
+    A["SIGN: chosen path (A, B, or C)<br/>Co-Founder, Engineering<br/>mutual exclusivity begins"] --> B{"90-day Anchorage pilot<br/>success criteria written TOGETHER<br/>equity step 1 rides on them - stated"}
+    B -->|criteria met| C["Pilot converts:<br/>discounted engagement + client equity<br/>ladder +3% (A) or retro-credit (C)"]
+    B -->|criteria missed| D["Clean exit ramp:<br/>vested equity kept, unvested lapses<br/>exclusivity terminates, both free"]
+    C --> E{Build path - resolved 7/24}
+    E -->|"chosen: build INSIDE NewCo<br/>clean-room; background IP licensed"| F["Stack v1 live at client 1"]
+    E -.->|"reserve: LLC-to-LLC license"| F
+    F --> G["Measured productivity lift at 2+ clients<br/>commercial gates follow<br/>17% part-time ceiling (Path A)"]
+    G --> H{Commitment}
+    H -->|part-time| I["17% cap + quarterly cash engine"]
+    H -->|"full-time 6+ months"| J["+8% to 25% cap<br/>100% acceleration on change of control"]
+    G --> K{Trajectory}
+    K -->|bootstrap + compound| L["Cohort origination engine<br/>founding clients pay 30% both ways<br/>insight network compounds across clients"]
+    K -->|"raise ~$5M"| M["Profits interests bake to stock<br/>clean cap table for investors"]
+    K -->|"early acquisition ~24mo"| N["Acceleration fires: earned = paid<br/>$5.1M PT / $7.5M FT on $30M"]
+    L --> O["CSE pilot = client 2<br/>Carter-originated: HIS 30% premium<br/>plus the 2-client surface his ladder needs"]
+    O --> G
+</pre>
+</div>
+<div class="notes"><ul>
+<li><b>The miss branch is drawn deliberately.</b> Showing the clean exit is what makes the ladder protection, not probation.</li>
+<li><b>The build fork honors Carter's own 7/24 proposal</b> - inside-NewCo chosen, license path dotted as reserve.</li>
+<li><b>Both trajectory branches pay earned tranches at full value</b> - bake at a raise, acceleration at a sale.</li>
+<li><b>The CSE loop feeds Carter's own ladder</b> - his origination premium and his step-3 milestone surface.</li>
+</ul></div>
+</div>
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+mermaid.initialize({startOnLoad:true, theme:'dark', themeVariables:{
+  primaryColor:'#132435', primaryTextColor:'#e8e2d6', primaryBorderColor:'#c9a96a',
+  lineColor:'#9a8154', secondaryColor:'#10202f', tertiaryColor:'#0b1826', fontSize:'13px'}});
+</script>
+</body>
+</html>

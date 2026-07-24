@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>Review Room - Carter Structure Package</title>
+<style>
+  :root{--navy:#0b1826;--panel:#132435;--line:#24384c;--brass:#c9a96a;--brass-dim:#9a8154;
+  --ink:#e8e2d6;--dim:#a9b4bf;--good:#7fc8a9;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--navy);color:var(--ink);font-family:var(--sans);line-height:1.5;padding-bottom:120px}
+  .page{max-width:760px;margin:0 auto;padding:0 20px}
+  .bar{background:#14301f;color:#9fd8b8;text-align:center;font-size:12px;letter-spacing:.16em;
+  text-transform:uppercase;padding:7px;font-weight:600}
+  header{padding:30px 0 18px;border-bottom:1px solid var(--line)}
+  h1{font-family:Georgia,serif;font-size:26px;font-weight:400}
+  h1 em{color:var(--brass);font-style:normal}
+  .sub{color:var(--dim);font-size:13.5px;margin-top:8px}
+  .item{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:18px 0}
+  .rid{display:inline-block;background:#0b1826;border:1px solid var(--brass-dim);color:var(--brass);
+  font-size:11px;font-weight:700;letter-spacing:.1em;border-radius:3px;padding:1px 8px;margin-right:8px}
+  .item h2{font-size:16px;font-weight:600;display:inline}
+  .item .desc{color:var(--dim);font-size:13px;margin:8px 0 4px}
+  .item a.view{color:var(--brass);font-size:13px}
+  .q{margin:14px 0 4px;padding-top:12px;border-top:1px solid rgba(36,56,76,.6)}
+  .q .qid{color:var(--brass-dim);font-size:11px;font-weight:700;letter-spacing:.08em}
+  .q .qt{font-size:13.5px;margin:3px 0 8px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opts label{border:1px solid var(--line);border-radius:20px;padding:6px 14px;font-size:13px;
+  cursor:pointer;user-select:none;color:var(--dim)}
+  .opts input{display:none}
+  .opts input:checked+span{color:#0b1826}
+  .opts label:has(input:checked){background:var(--brass);border-color:var(--brass);color:#0b1826;font-weight:600}
+  textarea{width:100%;background:#0b1826;border:1px solid var(--line);border-radius:6px;color:var(--ink);
+  font-family:var(--sans);font-size:13px;padding:8px 10px;margin-top:8px;min-height:38px;resize:vertical}
+  .foot{position:fixed;bottom:0;left:0;right:0;background:#10202f;border-top:1px solid var(--brass-dim);
+  padding:12px 16px;display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap}
+  button{background:var(--brass);color:#0b1826;border:none;border-radius:6px;font-weight:700;
+  font-size:14px;padding:10px 22px;cursor:pointer}
+  button.ghost{background:transparent;color:var(--dim);border:1px solid var(--line);font-weight:400}
+  #status{font-size:12px;color:var(--good)}
+  .prog{font-size:12px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="bar">Review room &middot; your feedback, cited by ID &middot; auto-saves on this device</div>
+<div class="page">
+<header>
+  <h1>Carter structure package - <em>review &amp; return</em></h1>
+  <p class="sub">Tap answers, add notes where you want. Everything auto-saves locally. When done,
+  hit <b>Copy feedback</b> and paste the block into any Kai session (Omnara or terminal) - every line
+  carries its cite ID, so your feedback lands exactly where it belongs.</p>
+</header>
+<div id="items"></div>
+</div>
+<div class="foot">
+  <span class="prog" id="prog"></span>
+  <button onclick="exportFb()">Copy feedback</button>
+  <button class="ghost" onclick="if(confirm('Clear all answers?')){localStorage.removeItem(KEY);location.reload()}">Reset</button>
+  <span id="status"></span>
+</div>
+<script>
+const KEY='carter-structure-review-2026-07-24';
+const ITEMS=[
+ {id:'R1',title:'The options brief (Carter-facing entry point)',view:'../options.html',
+  desc:'Three paths: A Earn-In Ladder (17/25%), B Cash-First (10% cap, +10pt delivery skew), C Prove-Then-Choose (paid sprint, day-90 choice, retro-credit). Shared foundations identical across all.',
+  qs:[
+   {q:'R1.1',t:'The option-set itself - is A/B/C the right menu?',o:['Approve as-is','Approve w/ edits (note)','Wrong menu (note)']},
+   {q:'R1.2',t:'Privately, which path do YOU want him to pick? (shapes emphasis, never shown)',o:['A ladder','B cash-first','C prove-then-choose','Truly neutral']},
+   {q:'R1.3',t:'Path B mechanics: 10% cap + delivery skew +10 points in his favor - right trade?',o:['Right','Cap too high','Cap too low','Skew wrong (note)']},
+   {q:'R1.4',t:'Path C retro-credit (choosing at day 90 still earns the pilot tranche) - keep?',o:['Keep','Drop retro-credit','Note']}]},
+ {id:'R2',title:'Path A one-pager',view:'../index.html',
+  desc:'The single-structure page: ladder table, honest exit cards ($5.1M/$7.5M), cash engine, exclusivity, principles.',
+  qs:[
+   {q:'R2.1',t:'Verdict on the page',o:['Approve','Approve w/ edits (note)','Rework (note)']},
+   {q:'R2.2',t:'Tone check - does it read as protection and partnership, not terms handed down?',o:['Yes','Too corporate','Too soft','Note']}]},
+ {id:'R3',title:'Branch map',view:'../branch-map.html',
+  desc:'Every branch drawn including the miss/exit ramp; build fork honors his inside-NewCo choice; CSE loop feeds his own ladder.',
+  qs:[
+   {q:'R3.1',t:'Verdict',o:['Approve','Edits (note)','Rework']},
+   {q:'R3.2',t:'Show the miss/exit branch to Carter?',o:['Yes - it builds trust','No - remove it','Soften wording (note)']}]},
+ {id:'R4',title:'The three numbers only you can set',view:null,
+  desc:'These are embedded as assumptions everywhere; your picks propagate to all artifacts.',
+  qs:[
+   {q:'R4.1',t:'Productivity-lift target X% (ladder step 3, measured at 2+ clients)',o:['20%','25%','30%','Other (note)']},
+   {q:'R4.2',t:'Commercial gate: cumulative collected revenue threshold',o:['$750k','$1M','$1.5M','Other (note)']},
+   {q:'R4.3',t:'Carter actual weekly hours (model assumed 12)',o:['~10','~12','~15','~20 (note if other)']}]},
+ {id:'R5',title:'Rollout decisions (scaling doc)',view:null,
+  desc:'From W11/structure-to-rollout-scaling: one-instrument rule, signing order, CSE second pilot.',
+  qs:[
+   {q:'R5.1',t:'Accept the CSE intro + formally relax C107 (Anchorage-only premise)? Recommended: accept, start day ~45-60, scoped smaller.',o:['Accept (recommended)','Anchorage-only for now','Discuss']},
+   {q:'R5.2',t:'Sequencing: structure signs BEFORE the office-of-the-CEO meeting',o:['Yes, hard order','Soft preference','No - meeting can go first']},
+   {q:'R5.3',t:'One-instrument rule (pilot criteria = proof-unit gates = equity step 1, fully disclosed)',o:['Adopt','Modify (note)']}]},
+ {id:'R6',title:'Nick conversation',view:null,
+  desc:'Draft talking points ready (W2/nick-tier-conversation-draft). Blocks any shared three-way doc. Core question it needs from you first:',
+  qs:[
+   {q:'R6.1',t:'Is Nick lane co-founder-scale, or specialist-with-real-equity?',o:['Co-founder-scale','Specialist lane','Undecided - decide by 7/31','Note']},
+   {q:'R6.2',t:'The talking-points draft',o:['Approve','Edits (note)','I will wing it']}]},
+ {id:'R7',title:'Exclusivity scope',view:null,
+  desc:'Panel dissent (codex): 2yr is overbroad for a part-time partner unless tightly scoped.',
+  qs:[
+   {q:'R7.1',t:'Duration for the full mutual exclusivity (paths A/B)',o:['2 years','1 year','Sprint first, then set it','Note']}]}
+];
+const state=JSON.parse(localStorage.getItem(KEY)||'{}');
+function save(){localStorage.setItem(KEY,JSON.stringify(state));prog();
+  document.getElementById('status').textContent='saved';setTimeout(()=>document.getElementById('status').textContent='',900)}
+function prog(){const total=ITEMS.reduce((a,i)=>a+i.qs.length,0);
+  const done=Object.keys(state).filter(k=>!k.endsWith('.note')&&state[k]).length;
+  document.getElementById('prog').textContent=done+' / '+total+' answered'}
+const root=document.getElementById('items');
+ITEMS.forEach(it=>{
+  const d=document.createElement('div');d.className='item';
+  let h='<span class="rid">'+it.id+'</span><h2>'+it.title+'</h2><p class="desc">'+it.desc+'</p>';
+  if(it.view)h+='<a class="view" href="'+it.view+'" target="_blank">Open artifact &rarr;</a>';
+  it.qs.forEach(q=>{
+    h+='<div class="q"><div class="qid">'+q.q+'</div><div class="qt">'+q.t+'</div><div class="opts">';
+    q.o.forEach(o=>{const chk=state[q.q]===o?' checked':'';
+      h+='<label><input type="radio" name="'+q.q+'"'+chk+' onchange="state[\''+q.q+'\']=\''+o.replace(/'/g,"\\'")+'\';save()"><span>'+o+'</span></label>'});
+    h+='</div><textarea placeholder="note (optional)" oninput="state[\''+q.q+'.note\']=this.value;save()">'+(state[q.q+'.note']||'')+'</textarea></div>'});
+  d.innerHTML=h;root.appendChild(d)});
+prog();
+function exportFb(){
+  let out='FEEDBACK carter-structure-review 2026-07-24\n';
+  ITEMS.forEach(it=>it.qs.forEach(q=>{
+    const a=state[q.q],n=(state[q.q+'.note']||'').trim();
+    if(a||n)out+=q.q+': '+(a||'-')+(n?' | note: '+n.replace(/\n/g,' '):'')+'\n'}));
+  out+='END FEEDBACK\n';
+  navigator.clipboard.writeText(out).then(()=>{
+    document.getElementById('status').textContent='copied - paste to Kai';
+  }).catch(()=>{prompt('Copy this:',out)});
+}
+</script>
+</body>
+</html>
